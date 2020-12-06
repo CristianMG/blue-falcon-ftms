@@ -1,6 +1,5 @@
-# ![Blue Falcon](bluefalcon.png) Blue-Falcon ![CI](https://github.com/Reedyuk/blue-falcon/workflows/CI/badge.svg) [![Kotlin](https://img.shields.io/badge/kotlin-1.3.72-blue.svg)](http://kotlinlang.org) ![badge][badge-android] ![badge][badge-native] ![badge][badge-mac]
 
-A Bluetooth "Cross Platform" Kotlin Multiplatform library for iOS, Android and MacOS. 
+A Bluetooth "Cross Platform" Kotlin Multiplatform library for iOS and Android.
 
 Bluetooth in general has the same functionality for all platforms, e.g. connect to device, fetch services, fetch characteristics.
 
@@ -10,11 +9,75 @@ The idea is to have a common api for using bluetooth as the principle of bluetoo
 
 What this library isn't? It is not a cross platform library, this is a multiplatform library. The difference? each platform is compiled down to the native code, so when you use the library in iOS, you are consuming an obj-c library and same principle for Android.
 
+## Compiling the Libraries
+
+To build the requisite frameworks (iOS) and archive (Android) execute `./gradlew build`.
+
+The exported iOS frameworks will be output to the following locations:
+
+```
+./build/bin/iosArm64/debugFramework/multiplatform_log.framework
+./build/bin/iosArm64/releaseFramework/multiplatform_log.framework
+./build/bin/iosX64/debugFramework/multiplatform_log.framework
+./build/bin/iosX64/releaseFramework/multiplatform_log.framework
+```
+
+While the exported Android archives will be output to:
+
+```
+./build/outputs/aar/multiplatform-ftms-debug.aar
+./build/outputs/aar/multiplatform-ftms-release.aar
+```
+
+You can also output the libraries to maven using `./gradlew build publishToMavenLocal`
+
+### Integrating the Libraries - Android
+
+1. Click on the Android Studio `Project` pane of the project you want to import the .aar into.
+2. Right click the topmost directory.
+3. Select `New` and then `Module`
+4. Scroll down in the New Module wizard and select `Import .JAR/.AAR Package`
+5. Select the .aar generated in the `Compiling the Libraries` section.
+6. Use the library functions as normal.
+
+If the libraries are published to a remote service (like bintray) they can be integrated by adding the repository with
+
+```
+repositories {
+    maven { url  "https://dl.bintray.com/com.github.jamesjmtaylor/maven" }
+}
+```
+
+and then
+
+```
+implementation "com.github.com.github.jamesjmtaylor:multiplatform-ftms-android:1.5.0"
+```
+
+### Integrating the Libraries - iOS
+
+1. Create a `Frameworks` folder in the XCode project's main directerory.
+2. Copy `./build/bin/iosArm64/debugFramework/multiplatform_log.framework` (assuming you're building to an actual iPhone) into the frameworks folder.
+3. In XCode drag the `Frameworks Directory` into the Project directory pane.
+4. Open the xcproject file (in the same pane)
+5. Select the main target
+6. Scroll down to `Frameworks, Libraries, and Embedded Content` and click the `+` symbol
+7. Click `Add Other in the bottom right of the popup.
+8. Click `Add Filees...`
+9. Navigate to the newly added `multiplatform_log.framework` file and select it.
+10. Use `import multiplatform_log` in the files that you want to access methods.
+
+If the libraries are published to a remote service (like bintray) they can be integrated by adding the repository with
+
+```
+implementation "com.github.com.github.jamesjmtaylor:multiplatform-ftms-android:1.5.0"
+```
+
 ## Basic Usage
 
 ### iOS & MacOS
 
-Create an instance of BlueFalcon and then call the scan method. 
+Create an instance of BlueFalcon and then call the scan method.
 
 By passing in a string uuid of the service uuid, you can filter to scan for only devices that have that service.
 
