@@ -16,10 +16,10 @@ To build the requisite frameworks (iOS) and archive (Android) execute `./gradlew
 The exported iOS frameworks will be output to the following locations:
 
 ```
-./build/bin/iosArm64/debugFramework/multiplatform_log.framework
-./build/bin/iosArm64/releaseFramework/multiplatform_log.framework
-./build/bin/iosX64/debugFramework/multiplatform_log.framework
-./build/bin/iosX64/releaseFramework/multiplatform_log.framework
+./build/bin/iosArm64/debugFramework/blue-falcon-ftms.framework
+./build/bin/iosArm64/releaseFramework/blue-falcon-ftms.framework
+./build/bin/iosX64/debugFramework/blue-falcon-ftms.framework
+./build/bin/iosX64/releaseFramework/blue-falcon-ftms.framework
 ```
 
 While the exported Android archives will be output to:
@@ -57,15 +57,15 @@ implementation "com.github.com.github.jamesjmtaylor:multiplatform-ftms-android:1
 ### Integrating the Libraries - iOS
 
 1. Create a `Frameworks` folder in the XCode project's main directerory.
-2. Copy `./build/bin/iosArm64/debugFramework/multiplatform_log.framework` (assuming you're building to an actual iPhone) into the frameworks folder.
+2. Copy `./build/bin/iosArm64/debugFramework/blue-falcon-ftms.framework` (assuming you're building to an actual iPhone) into the frameworks folder.
 3. In XCode drag the `Frameworks Directory` into the Project directory pane.
 4. Open the xcproject file (in the same pane)
 5. Select the main target
 6. Scroll down to `Frameworks, Libraries, and Embedded Content` and click the `+` symbol
 7. Click `Add Other in the bottom right of the popup.
 8. Click `Add Filees...`
-9. Navigate to the newly added `multiplatform_log.framework` file and select it.
-10. Use `import multiplatform_log` in the files that you want to access methods.
+9. Navigate to the newly added `blue-falcon-ftms.framework` file and select it.
+10. Use `import blue-falcon-ftms` in the files that you want to access methods.
 
 If the libraries are published to a remote service (like bintray) they can be integrated by adding the repository with
 
