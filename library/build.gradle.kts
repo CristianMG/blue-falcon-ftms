@@ -58,13 +58,13 @@ kotlin {
         }
     }
 
-    js {
-        browser()
-    }
+//    js {
+//        browser()
+//    }
 
     iosArm64()
     iosX64()
-    macosX64()
+//    macosX64()
 
     sourceSets {
         val commonMain by getting {
@@ -93,17 +93,17 @@ kotlin {
             }
         }
 
-        val jsMain by getting {
-            dependencies {
-            }
-        }
-
-        //JS tests currently not working, need to wait for jetbrains to release support
-        val jsTest by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-test-js")
-            }
-        }
+//        val jsMain by getting {
+//            dependencies {
+//            }
+//        }
+//
+//        //JS tests currently not working, need to wait for jetbrains to release support
+//        val jsTest by getting {
+//            dependencies {
+//                implementation("org.jetbrains.kotlin:kotlin-test-js")
+//            }
+//        }
     }
 }
 
