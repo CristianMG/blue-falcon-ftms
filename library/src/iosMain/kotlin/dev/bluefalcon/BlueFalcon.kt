@@ -243,7 +243,7 @@ actual class BlueFalcon actual constructor(
             val device = BluetoothPeripheral(peripheral, rssiValue = null)
             val characteristic = BluetoothCharacteristic(didUpdateValueForCharacteristic)
             delegates.forEach {
-                it.didCharacteristcValueChanged(
+                it.didCharacteristicValueChanged(
                     device,
                     characteristic
                 )

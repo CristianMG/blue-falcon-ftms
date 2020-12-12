@@ -23,11 +23,7 @@ inline fun <T> negate(crossinline toNegate: Predicate<T>): Predicate<T> {
 }
 
 
-fun ByteArray.toInt(): Int {
-    val numBits = this.size * 8
-    return BitSet.valueOf(this).toInt(numBits)
 
-}
 
 @ExperimentalUnsignedTypes
 fun UByteArray.toInt(): Int {
@@ -38,14 +34,15 @@ fun UByteArray.toInt(): Int {
     return result.toInt()
 }
 
+expect class BitSet(size: Int) {
+    operator fun get(index: Int): Boolean
+    fun set(index: Int, value: Boolean)
+    fun clear(index: Int)
+    fun or(another: BitSet)
 
-fun BitSet.toInt(numBits : Int ): Int {
-    var value = 0
-    var isNegative = false
-    for (i in 0 until this.length()) {
-        if (i == numBits - 1) isNegative = this[numBits - 1] // handle two's compliment
-        else value += if (this[i]) 1 shl i else 0
-    }
-    if (isNegative) return value * -1
-    return value
 }
+expect fun BitSet.size(): Int
+expect fun BitSet.toInt(numBits: Int): Int
+
+expect fun ByteArray.toInt(): Int
+expect fun ByteArray.toBitSet(): BitSet

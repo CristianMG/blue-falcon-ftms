@@ -2,35 +2,19 @@ package dev.bluefalcon
 
 const val DEFAULT_CHARACTERISTIC_DESCRIPTOR_WRITE_VALUE = "00002902-0000-1000-8000-00805f9b34fb" //Default descriptor write location
 const val GATT_SERVICE_MASK = "0000FFFF-0000-0000-0000-000000000000"
-const val MINIMUM_ACCEPTABLE_RSSI = -100
+const val MINIMUM_ACCEPTABLE_RSSI = -100f
 
-internal val meetsMinimumAcceptableRssi: Predicate<ScanResult> =
-    { value -> value.rssi >= MINIMUM_ACCEPTABLE_RSSI }
+internal val meetsMinimumAcceptableRssi: Predicate<BluetoothPeripheral> =
+    { it.rssi ?: -999f >= MINIMUM_ACCEPTABLE_RSSI }
 
-internal val truthyDeviceName: Predicate<ScanResult> =
-    { it.scanRecord != null && !it.scanRecord!!.deviceName.isNullOrEmpty() }
+internal val truthyDeviceName: Predicate<BluetoothPeripheral> =
+    { !it.name.isNullOrEmpty() }
 
-internal val isViableDevice: Predicate<ScanResult> =
+internal val isViableDevice: Predicate<BluetoothPeripheral> =
     meetsMinimumAcceptableRssi and truthyDeviceName
 
-internal fun getScanFilters() : List<ScanFilter> {
-    return listOf(ScanFilter.Builder().setServiceUuid(
-        ParcelUuid.fromString(SERVICES.FitnessMachine.uuid),
-        ParcelUuid.fromString(GATT_SERVICE_MASK)
-    ).build())
-}
-
-internal fun readCharacteristicFromService(gatt: BluetoothGatt?, serviceId: UUID, characteristicID: UUID): Boolean {
-    if (gatt == null) return false
-    if (gatt.services.isEmpty()) return false
-    val gattService = gatt.services.firstOrNull { it.uuid == serviceId } ?: return false
-    val characteristic = gattService.characteristics.firstOrNull {
-        it.uuid == characteristicID} ?: return false
-    return gatt.readCharacteristic(characteristic)
-}
-
-
-internal fun subscribeToCharacteristicFromService(gatt: BluetoothGatt?,
+//TODO: Need to replace this.
+/*internal fun subscribeToCharacteristicFromService(gatt: BluetoothGatt?,
                                                   serviceId: UUID,
                                                   characteristicID: UUID,
                                                   descriptorID: UUID): Boolean {
@@ -46,7 +30,7 @@ internal fun subscribeToCharacteristicFromService(gatt: BluetoothGatt?,
     if (!gattDescriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)) return false //Notifications disabled
 
     return gatt.writeDescriptor(gattDescriptor)
-}
+}*/
 
 
 

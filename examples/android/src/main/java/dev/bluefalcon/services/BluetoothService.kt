@@ -96,7 +96,7 @@ class BluetoothService: BlueFalconDelegate {
         print("Rssi updated.")
     }
 
-    override fun didCharacteristcValueChanged(bluetoothPeripheral: BluetoothPeripheral, bluetoothCharacteristic: BluetoothCharacteristic) {
+    fun didCharacteristicValueChanged(bluetoothPeripheral: BluetoothPeripheral, bluetoothCharacteristic: BluetoothCharacteristic) {
         characteristicDelegates[bluetoothCharacteristic.characteristic.uuid]?.characteristcValueChanged(bluetoothCharacteristic)
     }
 

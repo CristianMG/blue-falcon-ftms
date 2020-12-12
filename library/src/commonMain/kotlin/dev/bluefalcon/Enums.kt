@@ -1,5 +1,7 @@
 package dev.bluefalcon
 
+import kotlin.math.roundToInt
+
 enum class SERVICES(val prefix: String, val uuid: String) {
     GenericAccess("00001800","00001800-0000-1000-8000-00805f9b34fb"),
     CyclingSpeedAndCadence("00001816","00001826-0000-1000-8000-00805f9b34fb"),
@@ -108,7 +110,7 @@ enum class FITNESS_GET_FEATURE(val bitNumber: Int){
         }
         fun convertBytesToFeatures(bytes: ByteArray): List<FITNESS_GET_FEATURE> {
             val features = mutableListOf<FITNESS_GET_FEATURE>()
-            val bitSet = BitSet.valueOf(bytes)
+            val bitSet = bytes.toBitSet()//BitSet.valueOf(bytes)
             for (i in 0 until bitSet.size()){
                 if (bitSet.get(i)) features.add(getEnum(i))
             }
@@ -142,7 +144,7 @@ enum class FITNESS_SET_FEATURE(val bitNumber: Int){
         }
         fun convertBytesToFeatures(bytes: ByteArray): List<FITNESS_SET_FEATURE> {
             val features = mutableListOf<FITNESS_SET_FEATURE>()
-            val bitSet = BitSet.valueOf(bytes)
+            val bitSet = bytes.toBitSet()
             for (i in 0 until bitSet.size()){
                 if (bitSet.get(i)) features.add(getEnum(i))
             }
@@ -172,21 +174,21 @@ enum class INDOOR_BIKE_DATA_FLAGS(val flagBitNumber: Int, val byteSize: Int, val
         }
         fun convertBytesToFeatures(bytes: ByteArray): List<INDOOR_BIKE_DATA_FLAGS> {
             val features = mutableListOf<INDOOR_BIKE_DATA_FLAGS>()
-            val bitSet = BitSet.valueOf(bytes.copyOfRange(0,2))
+            val bitSet = bytes.copyOfRange(0,2).toBitSet()
             if (bitSet.get(0) == false) features.add(InstantaneousSpeedPresent)
             for (i in 0 until bitSet.size()){//TODO: Does not handle if bit 0 is true (Exceeds MTU size)
-                Timber.d("Bitset bit $i = ${bitSet.get(i)}")
+                log("Bitset bit $i = ${bitSet.get(i)}")
                 if (bitSet.get(i)) features.add(getEnum(i))
             }
             return features.toList()
         }
         @ExperimentalUnsignedTypes
-        fun convertBytesAndFeaturesToCharacteristics(bytes: ByteArray, flags: List<INDOOR_BIKE_DATA_FLAGS>):Characteristic{
+        fun convertBytesAndFeaturesToCharacteristics(bytes: ByteArray, flags: List<INDOOR_BIKE_DATA_FLAGS>): String{
             var currentByteIndex = 2 //First two bytes are used for flags.
             val sb = StringBuilder()
-            Timber.d("3rd Party- flags: $flags")
+            log("3rd Party- flags: $flags")
             for (flag in flags){
-                Timber.d("3rd Party- byte size: ${flag.byteSize}")
+                log("3rd Party- byte size: ${flag.byteSize}")
                 val dataEndByteIndex = currentByteIndex + flag.byteSize
                 val dataBytes = bytes.copyOfRange(currentByteIndex, dataEndByteIndex)
                 currentByteIndex = dataEndByteIndex
@@ -194,7 +196,8 @@ enum class INDOOR_BIKE_DATA_FLAGS(val flagBitNumber: Int, val byteSize: Int, val
                 val doubleValue = (int * flag.resolution * 10).roundToInt().toDouble() / 10.0 //Removes rounding errors
                 sb.append("${flag.name}: $doubleValue ${flag.units} \n")
             }
-            return Characteristic("Indoor Bike Data",sb.toString())
+
+            return sb.toString()
         }
     }
 }
@@ -228,22 +231,4 @@ enum class HEART_RATE_SENSOR_LOCATION(val intValue: Int) {
     companion object { fun getEnum(intValue: Int): HEART_RATE_SENSOR_LOCATION {
         return HEART_RATE_SENSOR_LOCATION.values().first { it.intValue == intValue }
     }}
-}
-
-enum class BleDeviceConnectionState {
-    CONNECTED,
-    CONNECTING,
-    NOT_CONNECTED,
-    ERROR
-}
-enum class BleScanFailedReason {
-    PERMISSION_NOT_GRANTED,
-    BLUETOOTH_NOT_ENABLED
-}
-enum class BleConnectionFailedReason {
-    CONNECTION_TIMED_OUT,
-    CONNECTION_FAILED,
-    CONNECTION_IN_PROGRESS,
-    ALREADY_CONNECTED,
-    NOT_VISIBLE
 }
