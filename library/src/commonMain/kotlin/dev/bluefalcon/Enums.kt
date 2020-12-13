@@ -172,15 +172,15 @@ enum class INDOOR_BIKE_DATA_FLAGS(val flagBitNumber: Int, val byteSize: Int, val
         fun getEnum(bitNumber: Int): INDOOR_BIKE_DATA_FLAGS {
             return INDOOR_BIKE_DATA_FLAGS.values().first { it.flagBitNumber == bitNumber }
         }
-        fun convertBytesToFeatures(bytes: ByteArray): List<INDOOR_BIKE_DATA_FLAGS> {
-            val features = mutableListOf<INDOOR_BIKE_DATA_FLAGS>()
+        fun convertBytesToFlags(bytes: ByteArray): List<INDOOR_BIKE_DATA_FLAGS> {
+            val flags = mutableListOf<INDOOR_BIKE_DATA_FLAGS>()
             val bitSet = bytes.copyOfRange(0,2).toBitSet()
-            if (bitSet.get(0) == false) features.add(InstantaneousSpeedPresent)
+            if (bitSet.get(0) == false) flags.add(InstantaneousSpeedPresent)
             for (i in 0 until bitSet.size()){//TODO: Does not handle if bit 0 is true (Exceeds MTU size)
                 log("Bitset bit $i = ${bitSet.get(i)}")
-                if (bitSet.get(i)) features.add(getEnum(i))
+                if (bitSet.get(i)) flags.add(getEnum(i))
             }
-            return features.toList()
+            return flags.toList()
         }
         @ExperimentalUnsignedTypes
         fun convertBytesAndFeaturesToCharacteristics(bytes: ByteArray, flags: List<INDOOR_BIKE_DATA_FLAGS>): String{
