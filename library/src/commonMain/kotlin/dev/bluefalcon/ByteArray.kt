@@ -9,4 +9,5 @@ package dev.bluefalcon
 //    return result.toInt()
 //}
 expect fun ByteArray.toInt(): Int
+expect fun ByteArray.asUnsignedToInt(): Int
 expect fun ByteArray.toBitSet(): BitSet

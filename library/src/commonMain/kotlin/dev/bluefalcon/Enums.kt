@@ -192,7 +192,7 @@ enum class INDOOR_BIKE_DATA_FLAGS(val flagBitNumber: Int, val byteSize: Int, val
                 val dataEndByteIndex = currentByteIndex + flag.byteSize
                 val dataBytes = bytes.copyOfRange(currentByteIndex, dataEndByteIndex)
                 currentByteIndex = dataEndByteIndex
-                val int = if (!flag.signed) dataBytes.asUByteArray().toInt() else dataBytes.toInt()
+                val int = if (!flag.signed) dataBytes.asUnsignedToInt() else dataBytes.toInt()
                 val doubleValue = (int * flag.resolution * 10).roundToInt().toDouble() / 10.0 //Removes rounding errors
                 sb.append("${flag.name}: $doubleValue ${flag.units} \n")
             }
