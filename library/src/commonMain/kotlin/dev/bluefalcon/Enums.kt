@@ -110,7 +110,7 @@ enum class FITNESS_GET_FEATURE(val bitNumber: Int){
         }
         fun convertBytesToFeatures(bytes: ByteArray): List<FITNESS_GET_FEATURE> {
             val features = mutableListOf<FITNESS_GET_FEATURE>()
-            val bitSet = bytes.toBitSet()//BitSet.valueOf(bytes)
+            val bitSet = bytes.toBitSet()
             for (i in 0 until bitSet.size()){
                 if (bitSet.get(i)) features.add(getEnum(i))
             }
