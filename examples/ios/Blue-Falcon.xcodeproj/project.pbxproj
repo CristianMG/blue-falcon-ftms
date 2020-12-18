@@ -11,7 +11,6 @@
 		00F292BB23204BCC00CC1B2E /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F292BA23204BCC00CC1B2E /* BluetoothService.swift */; };
 		00F292BD2320507600CC1B2E /* BluetoothScanningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F292BC2320507600CC1B2E /* BluetoothScanningState.swift */; };
 		29BA30B3CD68DA1563FEDE72 /* Pods_Blue_FalconTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B526CB3F28C7FE940A5E947C /* Pods_Blue_FalconTests.framework */; };
-		30A2DF892B24294E43FA2C05 /* Pods_Blue_Falcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DCB1F90714D69E9DFB9A15C /* Pods_Blue_Falcon.framework */; };
 		4902C4ED231127B4009D1416 /* DevicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4902C4EC231127B4009D1416 /* DevicesViewModel.swift */; };
 		4902C4EF231127C4009D1416 /* DevicesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4902C4EE231127C4009D1416 /* DevicesCellViewModel.swift */; };
 		4902C4F423112873009D1416 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4902C4F323112873009D1416 /* DevicesView.swift */; };
@@ -34,6 +33,9 @@
 		498B0800231C413800CA8EC1 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B07FF231C413800CA8EC1 /* Strings.swift */; };
 		49BD3E89231C575900960C6F /* BluetoothConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD3E88231C575900960C6F /* BluetoothConnectionState.swift */; };
 		49CF49432316594A00B30A4C /* DeviceCharacteristicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF49422316594A00B30A4C /* DeviceCharacteristicCell.swift */; };
+		8F16BAAA258D086B00F2D7C1 /* Frameworks in Resources */ = {isa = PBXBuildFile; fileRef = 8F16BAA9258D086A00F2D7C1 /* Frameworks */; };
+		8F16BAB7258D08A900F2D7C1 /* library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F16BAB6258D08A900F2D7C1 /* library.framework */; };
+		8F16BAB8258D08A900F2D7C1 /* library.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F16BAB6258D08A900F2D7C1 /* library.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B6AB3EF9ABF6DE926F2A877D /* Pods_Blue_FalconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CE099E84C76E60CE8E17AE /* Pods_Blue_FalconUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,20 @@
 			remoteInfo = "Blue-Falcon";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8F16BAB9258D08A900F2D7C1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8F16BAB8258D08A900F2D7C1 /* library.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0014BA4C2436356F002037EB /* Descriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Descriptor.swift; sourceTree = "<group>"; };
@@ -91,6 +107,8 @@
 		49CF49422316594A00B30A4C /* DeviceCharacteristicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCharacteristicCell.swift; sourceTree = "<group>"; };
 		7DCB1F90714D69E9DFB9A15C /* Pods_Blue_Falcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blue_Falcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86B1877241E77DBE989028FD /* Pods-Blue-FalconUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blue-FalconUITests.debug.xcconfig"; path = "Target Support Files/Pods-Blue-FalconUITests/Pods-Blue-FalconUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8F16BAA9258D086A00F2D7C1 /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = "<group>"; };
+		8F16BAB6258D08A900F2D7C1 /* library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = library.framework; path = Frameworks/library.framework; sourceTree = "<group>"; };
 		B526CB3F28C7FE940A5E947C /* Pods_Blue_FalconTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blue_FalconTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B68B91B5DEB67F32A0743837 /* Pods-Blue-Falcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blue-Falcon.debug.xcconfig"; path = "Target Support Files/Pods-Blue-Falcon/Pods-Blue-Falcon.debug.xcconfig"; sourceTree = "<group>"; };
 		B823EA2B4839EAAEDA309AF4 /* Pods-Blue-FalconTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blue-FalconTests.debug.xcconfig"; path = "Target Support Files/Pods-Blue-FalconTests/Pods-Blue-FalconTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,7 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30A2DF892B24294E43FA2C05 /* Pods_Blue_Falcon.framework in Frameworks */,
+				8F16BAB7258D08A900F2D7C1 /* library.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +180,7 @@
 		4913235C2306BE1A0035A693 = {
 			isa = PBXGroup;
 			children = (
+				8F16BAA9258D086A00F2D7C1 /* Frameworks */,
 				491323672306BE1A0035A693 /* Blue-Falcon */,
 				4913237E2306BE1E0035A693 /* Blue-FalconTests */,
 				491323892306BE1E0035A693 /* Blue-FalconUITests */,
@@ -268,6 +287,7 @@
 		7234F4FA77B20A826915AA03 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F16BAB6258D08A900F2D7C1 /* library.framework */,
 				7DCB1F90714D69E9DFB9A15C /* Pods_Blue_Falcon.framework */,
 				B526CB3F28C7FE940A5E947C /* Pods_Blue_FalconTests.framework */,
 				28CE099E84C76E60CE8E17AE /* Pods_Blue_FalconUITests.framework */,
@@ -286,6 +306,7 @@
 				491323612306BE1A0035A693 /* Sources */,
 				491323622306BE1A0035A693 /* Frameworks */,
 				491323632306BE1A0035A693 /* Resources */,
+				8F16BAB9258D08A900F2D7C1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -385,6 +406,7 @@
 				491323752306BE1E0035A693 /* LaunchScreen.storyboard in Resources */,
 				491323722306BE1E0035A693 /* Preview Assets.xcassets in Resources */,
 				4913236F2306BE1E0035A693 /* Assets.xcassets in Resources */,
+				8F16BAAA258D086B00F2D7C1 /* Frameworks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,14 +687,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Blue-Falcon/Preview\\ Content";
-				DEVELOPMENT_TEAM = 269C5Q4423;
+				DEVELOPMENT_TEAM = 3UNUY4A2PK;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = "Blue-Falcon/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.bluefalcon;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bluefalcon.ftms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -686,14 +712,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Blue-Falcon/Preview\\ Content";
-				DEVELOPMENT_TEAM = 269C5Q4423;
+				DEVELOPMENT_TEAM = 3UNUY4A2PK;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = "Blue-Falcon/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.bluefalcon;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bluefalcon.ftms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

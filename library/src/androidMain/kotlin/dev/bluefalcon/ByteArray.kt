@@ -6,8 +6,14 @@ actual fun ByteArray.toInt(): Int {
     return BitSet.valueOf(this).toInt(numBits)
 }
 
+@ExperimentalUnsignedTypes
 actual fun ByteArray.asUnsignedToInt(): Int {
-    TODO("Not yet implemented")
+    val uByteArray = this.asUByteArray()
+    var result : UInt = 0u
+    for (i in uByteArray.indices){
+        result = result or (this[i].toUInt() shl 8 * i)
+    }
+    return result.toInt()
 }
 
 actual fun ByteArray.toBitSet(): BitSet {

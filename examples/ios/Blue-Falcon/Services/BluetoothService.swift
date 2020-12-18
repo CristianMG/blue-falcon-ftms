@@ -107,6 +107,15 @@ class BluetoothService {
 }
 
 extension BluetoothService: BlueFalconDelegate {
+    func didCharacteristicValueChanged(bluetoothPeripheral: BluetoothPeripheral, bluetoothCharacteristic: BluetoothCharacteristic) {
+
+        CHARACTERISTICS.Companion.getCharacteristic(<#T##self: CHARACTERISTICS.Companion##CHARACTERISTICS.Companion#>)
+        bluetoothCharacteristic.characteristic.service.uuid.uuidString // returns the service prefix (without the leading zeros, i.e. "1816" which is CSC)
+        bluetoothCharacteristic.characteristic.value // outputs the bytes of the characteristic
+        bluetoothCharacteristic.characteristic.uuid.uuidString // returns the characteristic prefix (without the leading zeros, i.e. "2A5B" which is CscMeasurement)
+        print("BT Service didCharacteristicValueChanged -> \(bluetoothCharacteristic.value)")
+    }
+
 
     func didReadDescriptor(bluetoothPeripheral: BluetoothPeripheral, bluetoothCharacteristicDescriptor: CBDescriptor) {
         print("BT Service didReadDescriptor -> \(bluetoothCharacteristicDescriptor.value)")
