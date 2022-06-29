@@ -252,7 +252,7 @@ actual class BlueFalcon actual constructor(
                     bluetoothPeripheral.rssi = scanResult.rssi.toFloat()
 
                     delegates.forEach {
-                        it.didDiscoverDevice(bluetoothPeripheral)
+                        it.didDiscoverDevice(bluetoothPeripheral, advertisementData = sharedAdvertisementData)
                     }
                 }
             }

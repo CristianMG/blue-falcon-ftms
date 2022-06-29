@@ -64,7 +64,11 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {}
+        val commonMain by getting {
+            dependencies {
+                implementation("dev.bluefalcon:blue-falcon-android:0.10.7")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))

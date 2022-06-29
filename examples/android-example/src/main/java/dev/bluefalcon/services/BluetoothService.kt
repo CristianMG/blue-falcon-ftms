@@ -70,6 +70,8 @@ class BluetoothService: BlueFalconDelegate {
         bluetoothPeripheral: BluetoothPeripheral,
         advertisementData: Map<AdvertisementDataRetrievalKeys, Any>
     ) {
+        bluetoothPeripheral.hasService(Service.FitnessMachine)
+
         if (devices.firstOrNull {
             it.bluetoothDevice.address == bluetoothPeripheral.bluetoothDevice.address
         } == null) {
@@ -80,10 +82,6 @@ class BluetoothService: BlueFalconDelegate {
                 delegate.discoveredDevice(devices)
             }
         }
-    }
-
-    override fun didDiscoverDevice(bluetoothPeripheral: BluetoothPeripheral) {
-
     }
 
     override fun didConnect(bluetoothPeripheral: BluetoothPeripheral) {
@@ -113,11 +111,12 @@ class BluetoothService: BlueFalconDelegate {
     override fun didDisconnect(bluetoothPeripheral: BluetoothPeripheral) {}
 
     override fun didDiscoverCharacteristics(bluetoothPeripheral: BluetoothPeripheral) {}
-    override fun didCharacteristicValueChanged(bluetoothPeripheral: BluetoothPeripheral, bluetoothCharacteristic: BluetoothCharacteristic) {
-        TODO("Not yet implemented")
-    }
+
 
     override fun didUpdateMTU(bluetoothPeripheral: BluetoothPeripheral) {}
+    override fun didWriteDescriptor(bluetoothPeripheral: BluetoothPeripheral, bluetoothCharacteristicDescriptor: BluetoothCharacteristicDescriptor) {
+    }
+
     override fun didWriteCharacteristic(
         bluetoothPeripheral: BluetoothPeripheral,
         bluetoothCharacteristic: BluetoothCharacteristic,
