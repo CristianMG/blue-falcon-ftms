@@ -1,118 +1,19 @@
 import java.util.*
-
-buildscript {
-    val kotlin_version: String by project
-    val android_tools_version: String by project
-    val bintray_plugin_version: String by project
-
-    repositories {
-        mavenLocal()
-        jcenter()
-        google()
-        maven(url = "https://dl.bintray.com/jetbrains/kotlin-native-dependencies")
-        maven(url = "https://maven.google.com")
-        maven(url = "https://plugins.gradle.org/m2/")
-        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
-        maven(url = "https://kotlin.bintray.com/kotlinx")
-    }
-
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-        classpath("com.android.tools.build:gradle:$android_tools_version")
-        classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintray_plugin_version")
-    }
-}
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
-    id("org.jetbrains.kotlin.multiplatform")
-    id("org.jetbrains.kotlin.native.cocoapods")
+    kotlin("multiplatform") version "1.6.21"
+    id("com.android.library")
     id("maven-publish")
     id("signing")
 }
 
 repositories {
-    mavenLocal()
+    google()
     mavenCentral()
     google()
-    jcenter()
-    maven(url = "https://kotlin.bintray.com/kotlinx")
-    maven(url = "https://dl.bintray.com/kotlin/kotlin-dev")
-    maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
-}
-
-configurations.create("compileClasspath")
-
-kotlin {
-    cocoapods {
-        // Configure fields required by CocoaPods.
-        summary = "Blue-Falcon a multiplatform bluetooth library"
-        homepage = "http://www.bluefalcon.dev"
-    }
-
-    //need to use jvm because android doesnt export type alias
-    jvm("android") {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
-
-//    js {
-//        browser()
-//    }
-
-    iosArm64()
-    iosX64()
-//    macosX64()
-
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-            }
-        }
-
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
-
-        val androidMain by getting {
-            dependencies {
-                compileOnly("org.robolectric:android-all:9-robolectric-4913185-2")
-            }
-        }
-
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-                implementation("com.android.support.test:runner:1.0.2")
-            }
-        }
-
-//        val jsMain by getting {
-//            dependencies {
-//            }
-//        }
-//
-//        //JS tests currently not working, need to wait for jetbrains to release support
-//        val jsTest by getting {
-//            dependencies {
-//                implementation("org.jetbrains.kotlin:kotlin-test-js")
-//            }
-//        }
-    }
-}
-
-fun SigningExtension.whenRequired(block: () -> Boolean) {
-    setRequired(block)
-}
-
-val javadocJar by tasks.creating(Jar::class) {
-    archiveClassifier.value("javadoc")
+    maven("https://jitpack.io")
+    mavenLocal()
 }
 
 //expose properties
@@ -137,6 +38,54 @@ val developerId: String by project
 val developerName: String by project
 val developerEmail: String by project
 val group: String by project
+
+android {
+    compileSdk = 26
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    defaultConfig {
+        minSdk = 24
+        targetSdk = 26
+    }
+}
+
+val frameworkName = "BlueFalcon"
+
+kotlin {
+    android {
+        publishLibraryVariants("debug", "release")
+    }
+
+    val xcf = XCFramework(frameworkName)
+    iosArm64("ios") {
+        binaries.framework {
+            baseName = frameworkName
+            xcf.add(this)
+        }
+    }
+
+    sourceSets {
+        val commonMain by getting {}
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+            }
+        }
+        val iosMain by getting
+    }
+}
+
+fun SigningExtension.whenRequired(block: () -> Boolean) {
+    setRequired(block)
+}
+
+val javadocJar by tasks.creating(Jar::class) {
+    archiveClassifier.value("javadoc")
+}
 
 publishing {
     repositories {

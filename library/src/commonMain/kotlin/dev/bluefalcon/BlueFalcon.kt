@@ -8,7 +8,15 @@ expect class BlueFalcon(context: ApplicationContext, serviceUUID: String?) {
     fun connect(bluetoothPeripheral: BluetoothPeripheral, autoConnect: Boolean = false)
     fun disconnect(bluetoothPeripheral: BluetoothPeripheral)
 
+    @Throws(
+        BluetoothUnknownException::class,
+        BluetoothResettingException::class,
+        BluetoothUnsupportedException::class,
+        BluetoothPermissionException::class,
+        BluetoothNotEnabledException::class
+    )
     fun scan()
+
     fun stopScanning()
 
     fun readCharacteristic(
@@ -42,6 +50,13 @@ expect class BlueFalcon(context: ApplicationContext, serviceUUID: String?) {
     )
 
     fun writeCharacteristic(
+        bluetoothPeripheral: BluetoothPeripheral,
+        bluetoothCharacteristic: BluetoothCharacteristic,
+        value: ByteArray,
+        writeType: Int?
+    )
+
+    fun writeCharacteristicWithoutEncoding(
         bluetoothPeripheral: BluetoothPeripheral,
         bluetoothCharacteristic: BluetoothCharacteristic,
         value: ByteArray,
