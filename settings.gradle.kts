@@ -25,6 +25,5 @@ rootProject.name = "bluefalcon"
 
 include("library")
 include("examples:android")
-include("examples")
 
 enableFeaturePreview("GRADLE_METADATA")

@@ -1,5 +1,0 @@
-rootProject.name = 'KotlinMP'
-
-include ':app'
-
-enableFeaturePreview("GRADLE_METADATA")
